@@ -9,7 +9,7 @@ var glob = require("glob")
 var availableCommands = {};
 
 // options is optional
-glob("./commands/**/*.cmd.js", {cwd : './', follow: true}, function (er, files) {
+glob("./fbMessengerBot/commands/**/*.cmd.js", { follow: true}, function (er, files) {
 
     _.each(files, function (file) {
 
@@ -17,7 +17,7 @@ glob("./commands/**/*.cmd.js", {cwd : './', follow: true}, function (er, files) 
         var commandName = path[path.length - 1].replace('.cmd.js', '');
 
 
-        availableCommands[commandName] = require(file);
+        availableCommands[commandName] = require('./commands/' + commandName + '.cmd');
 
 
     });
@@ -47,13 +47,16 @@ module.exports = function (config) {
 
         sendMessage(senderId, textReply); 
         
-        var availableCommandNames = _.keys(availableCommands).join(', ');
+        if (_.size(availableCommands) > 0) {
 
-        textReply = new fbMessage
-            .PlainText("Available commands: '" + availableCommandNames)
-            .compose();
+            var availableCommandNames = _.keys(availableCommands).join(', ');
 
-        sendMessage(senderId, textReply); 
+            textReply = new fbMessage
+                .PlainText("Available commands: " + availableCommandNames)
+                .compose();
+
+            sendMessage(senderId, textReply); 
+        }
 
     }
 
