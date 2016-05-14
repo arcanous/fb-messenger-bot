@@ -37,7 +37,9 @@ module.exports = function (config) {
     if (availableCommands[commands[0]]) {
         
         var restCommandParameters = _.rest(commands, 1).join(' ');
-        availableCommands[commands[0]](restCommandParameters);
+        var commandResult = availableCommands[commands[0]](restCommandParameters);
+
+        sendMessage(senderId, commandResult); 
 
     } else {
         

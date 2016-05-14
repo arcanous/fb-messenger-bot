@@ -9,6 +9,6 @@ module.exports = function (commandArguments) {
         .PlainText("...calling weather command with arguments: " + commandArguments)
         .compose();
 
-	sendMessage(senderId, textReply); 
+	return textReply; 
 
 }
