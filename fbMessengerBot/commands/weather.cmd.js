@@ -32,7 +32,7 @@ module.exports = function (commandArguments) {
                     })
                     .addButton({
                         type:       "web_url",
-                        url:        "#",
+                        url:        "http://www.msn.com/en-us/weather/weathersearch?q=" + result.current.observationpoint,
                         title:      result.current.day
                     })
                     .compose();
