@@ -2,6 +2,7 @@ var sendMessage = require('./fbMessage/sendMessage');
 var fbMessage = require('./fbMessage/fbMessage');
 
 var handleBotCommands = require('./handleBotCommands');
+var handleSlashCommands = require('./handleSlashCommands');
 
 var debugMode = require('./config/debugMode');
 
