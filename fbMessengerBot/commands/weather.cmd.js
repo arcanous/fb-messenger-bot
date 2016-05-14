@@ -30,6 +30,11 @@ module.exports = function (commandArguments) {
                         image_url:  result.current.imageUrl,
                         subtitle:   temperature + ' Wind: ' + result.current.winddisplay
                     })
+                    .addButton({
+                        type:       "web_url",
+                        url:        "#",
+                        title:      result.current.day
+                    })
                     .compose();
 
             }
