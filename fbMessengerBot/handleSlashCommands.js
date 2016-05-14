@@ -4,36 +4,58 @@ var fbMessage = require('./fbMessage/fbMessage');
 var debugMode = require('./config/debugMode');
 
 var _ = require('underscore');
+var glob = require("glob")
+
+var availableCommands = {};
+
+// options is optional
+glob("./commands/**/*.cmd.js", {cwd : './', follow: true}, function (er, files) {
+
+    _.each(files, function (file) {
+
+        var path = file.split('/');
+        var commandName = path[path.length - 1].replace('.cmd.js', '');
+
+
+        availableCommands[commandName] = require(file);
+
+
+    });
+
+});
+
+
+
 
 module.exports = function (config) {
 	
 	var senderId = config.senderId;
     var commands = config.command.split(' ');
 
-    switch (commands[0]) {
-        case 'weather':
-            
-            var location = _.rest(commands, 1).join(' ');
-
-            var textReply = new fbMessage
-                .PlainText("Laicins " + commands + " ir jauks")
-                .compose();
-
-            sendMessage(senderId, textReply);            
 
 
-        break;
-        default:
-            
-            var textReply = new fbMessage
-                .PlainText("Command '" + commands[0] + "' not found!")
-                .compose();
+    if (availableCommands[commands[0]]) {
+        
+        var restCommandParameters = _.rest(commands, 1).join(' ');
+        availableCommands[commands[0]](restCommandParameters);
 
-            sendMessage(senderId, textReply); 
+    } else {
+        
+        var textReply = new fbMessage
+            .PlainText("Command '" + commands[0] + "' not found!")
+            .compose();
+
+        sendMessage(senderId, textReply); 
+        
+        var availableCommandNames = _.keys(availableCommands).join(', ');
+
+        textReply = new fbMessage
+            .PlainText("Available commands: '" + availableCommandNames)
+            .compose();
+
+        sendMessage(senderId, textReply); 
 
     }
-
-
 
 
 
