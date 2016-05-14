@@ -13,16 +13,23 @@ module.exports = function (config) {
     switch (commands[0]) {
         case 'weather':
             
-            var location = _.rest(commands).join(' ');
+            var location = _.rest(commands, 1).join(' ');
 
             var textReply = new fbMessage
-                .PlainText("Laicins " + commands + " ir jauks https://www.youtube.com/watch?v=PFjQd-sl_sU")
+                .PlainText("Laicins " + commands + " ir jauks")
                 .compose();
 
             sendMessage(senderId, textReply);            
 
 
         break;
+        default:
+            
+            var textReply = new fbMessage
+                .PlainText("Command '" + commands[0] + "' not found!")
+                .compose();
+
+            sendMessage(senderId, textReply); 
 
     }
 
