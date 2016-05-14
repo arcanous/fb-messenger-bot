@@ -11,10 +11,11 @@ Turn on appropriate background music on. [Uplink OST](https://www.youtube.com/wa
 
 Follow the guide at [Facebook Messenger Platform - Getting Started](https://developers.facebook.com/docs/messenger-platform/quickstart). You should have a Facebook page and App set up before continuing.
 
-Set up web access to your appication. HTTPS is preferd. If don't have personal preference, [Heroku](https://www.heroku.com/) is well suited for quick deployment, development and experimentation.
+Set up web access to your appication. HTTPS is prefered. If you don't have a personal preference, [Heroku](https://www.heroku.com/) is well suited for quick deployment, development and experimentation.
 
 Enter your app https address followed by ```/webhook``` in ![setup](https://scontent-amt2-1.xx.fbcdn.net/t39.2178-6/12057143_211110782612505_894181129_n.png)
 
+Subscribe to messages and messaging_postbacks at least.
 Then whatever you set as Verify Token change it accordingly in server.js
 ```
 //server.js
@@ -43,9 +44,9 @@ Open up your Facebook page, click messages and start conversing with the bot...
 Whenever you write a message to your bot in Facebook Messenger, a POST request is made to ```https://yourappurl.com/webhook```. App initially receives them in ```/fbMessengerBot/index.js```
 
 Then based on message type they are passed onto different handlers 
-```/fbMessengerBot/handleMessages.js``` - generic messages typed by users
-```/fbMessengerBot/handlePostbacks.js``` - postbacks whenever user clicks a button with postback payload defined
-```/fbMessengerBot/handleOptins.js``` - user optins
+- ```/fbMessengerBot/handleMessages.js``` - generic messages typed by users
+- ```/fbMessengerBot/handlePostbacks.js``` - postbacks whenever user clicks a button with postback payload defined
+- ```/fbMessengerBot/handleOptins.js``` - user optins
 
 
 ## Bot commands
