@@ -28,6 +28,15 @@ module.exports = function (senderId, message) {
     }
 
 
+    if (messageText.substr(0, 1) === '/') {
+
+        handleSlashCommands({
+            senderId : senderId,
+            command : messageText.toLowerCase().substr(1)
+        });
+
+    }
+
 
     //ok now here we can handle generic messages received by the bot...
 
