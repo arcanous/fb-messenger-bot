@@ -1,14 +1,29 @@
-
-var sendMessage = require('../fbMessage/sendMessage');
 var fbMessage = require('../fbMessage/fbMessage');
-var _ = require('underscore');
+var weather = require('weather-js');
 
 module.exports = function (commandArguments) {
-	
-    var textReply = new fbMessage
-        .PlainText("...calling weather command with arguments: " + commandArguments)
-        .compose();
 
-	return textReply; 
+
+    weather.find({search: commandArguments, degreeType: 'C'}, function(err, result) {
+          
+        if (err) {
+            
+            var textReply = new fbMessage
+                .PlainText("Couldn't find wather for " + commandArguments)
+                .compose();
+
+        } else {
+
+            var textReply = new fbMessage
+                .PlainText(JSON.stringify(result))
+                .compose();
+
+        }
+        
+
+        return textReply; 
+
+
+    });
 
 }
